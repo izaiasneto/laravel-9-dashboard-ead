@@ -12,4 +12,9 @@ class Course extends Model
     protected $fillable = [
         'name', 'description', 'image', 'available'
     ];
+
+    public function modules()
+    {
+        return $this->hasMany(Module::class);
+    }
 }
