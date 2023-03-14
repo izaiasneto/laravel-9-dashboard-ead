@@ -22,6 +22,7 @@
                     <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Atualizar Foto</button>
                 </div>
             </form>
+            <p></p>
         </div>
     </div>
 @endsection
