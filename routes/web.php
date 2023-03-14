@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\{
+    CourseController,
     AdminController,
     DashboardController,
     UserController
@@ -9,11 +10,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
     /**
+     * Routes Course
+     */
+    Route::resource('/courses', CourseController::class);
+    /**
      * Routes Admin
      */
     Route::put('/admins/{id}/update-image', [AdminController::class, 'uploadFile'])->name('admins.update.image');
     Route::get('/admins/{id}/image', [AdminController::class, 'changeImage'])->name('admins.change.image');
-    Route::resource('/admins',AdminController::class);
+    Route::resource('/admins', AdminController::class);
 
 
     /**
