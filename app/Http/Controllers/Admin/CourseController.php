@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Course\StoreCourse;
 use App\Services\{
     CourseService,
     UploadFile,
@@ -33,7 +34,7 @@ class CourseController extends Controller
         return view('admin.courses.create');
     }
 
-    public function store(Request $request, UploadFile $uploadFile)
+    public function store(StoreCourse $request, UploadFile $uploadFile)
     {
         $data = $request->only('name');
         $data['available'] = isset($request->available);
