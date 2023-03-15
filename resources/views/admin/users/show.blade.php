@@ -12,8 +12,8 @@
         <div class="leading-loose">
             <form class="p-10 bg-white rounded shadow-xl" action="{{ route('users.destroy', $user->id) }}" method="POST">
                 <ul>
-                    <li>{{ $user->name }}</li>
-                    <li>{{ $user->email }}</li>
+                    <li><strong>Nome: </strong>{{ $user->name }}</li>
+                    <li><strong>E-mail: </strong>{{ $user->email }}</li>
                 </ul>
                 @method('DELETE')
                 @csrf
