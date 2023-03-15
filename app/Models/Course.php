@@ -38,13 +38,6 @@ class Course extends Model
         'id' => 'string',
     ];
 
-    // protected function image(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => $value ? Storage::url($value) : null,
-    //     );
-    // }
-
     public function modules()
     {
         return $this->hasMany(Module::class);

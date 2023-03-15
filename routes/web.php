@@ -6,11 +6,19 @@ use App\Http\Controllers\Admin\{
     LessonController,
     AdminController,
     DashboardController,
+    SupportController,
     UserController,
 };
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
+    /**
+     * Routes Supports
+    */
+    Route::get('/supports/{id}', [SupportController::class, 'show'])->name('supports.show');
+    Route::get('/supports', [SupportController::class, 'index'])->name('supports.index');
+
+
     /**
      * Routes Lessons
     */

@@ -9,7 +9,26 @@ class Support extends Model
 {
     use HasFactory;
 
+     /**
+     * Indicates if the model's ID is auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
     public $fillable = [
         'status', 'description', 'user_id', 'lesson_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
+    }
 }
+   
+
