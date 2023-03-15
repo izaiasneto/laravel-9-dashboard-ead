@@ -13,7 +13,10 @@
 </h1>
 
 <div class="w-full mt-12">
-    {{-- @include('admin.includes.form-search', ['routerName' => 'modules.index']) --}}
+    @include('admin.includes.form-search', [
+        'routerName' => 'modules.index',
+        'params' => $course->id
+    ])
     <div class="bg-white overflow-auto">
         <table class="min-w-full leading-normal">
             <thead>
@@ -41,7 +44,7 @@
                             </div>
                         </td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <a href="">
+                            <a href="{{ route('modules.show', [$course->id, $module->id])}}">
                                 <span
                                     class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                     <span aria-hidden
