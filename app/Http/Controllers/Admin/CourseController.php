@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Course\StoreCourse;
-use App\Http\Requests\StoreImage;
+use App\Http\Requests\Course\StoreUpdateCourse;
 use App\Services\{
     CourseService,
     UploadFile,
@@ -35,7 +34,7 @@ class CourseController extends Controller
         return view('admin.courses.create');
     }
 
-    public function store(StoreCourse $request, UploadFile $uploadFile)
+    public function store(StoreUpdateCourse $request, UploadFile $uploadFile)
     {
         $data = $request->only('name');
         $data['available'] = isset($request->available);
@@ -57,7 +56,7 @@ class CourseController extends Controller
         return view('admin.courses.edit', compact('course'));
     }
 
-    public function update(StoreImage $request, UploadFile $uploadFile, $id)
+    public function update(StoreUpdateCourse $request, UploadFile $uploadFile, $id)
     {
         $data = $request->only('name');
         $data['available'] = isset($request->available);
