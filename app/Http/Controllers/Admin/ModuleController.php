@@ -2,31 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateModule;
-use Illuminate\Http\Request;
 use App\Services\{
     CourseService,
     ModuleService,
 };
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateModule;
+use Illuminate\Http\Request;
+
 
 class ModuleController extends Controller
 {
-    protected $repository;
-    protected $repositoryCourse;
+    protected $service;
+    protected $serviceCourse;
 
-    public function __construct(CourseService $repositoryCourse, ModuleService $repository)
+    public function __construct(CourseService $serviceCourse, ModuleService $service)
     {
-        $this->repository = $repository;
-        $this->repositoryCourse = $repositoryCourse;
+        $this->service = $service;
+        $this->serviceCourse = $serviceCourse;
     }
 
     public function index(Request $request, $courseId)
     {
-       if (!$course = $this->repositoryCourse->findById($courseId))
+       if (!$course = $this->serviceCourse->findById($courseId))
             return back();
 
-       $data = $this->repository->getAllByCourseId(
+       $data = $this->service->getAllByCourseId(
             courseId: $courseId,
             filter: $request->filter ?? ''
        );
@@ -37,7 +38,7 @@ class ModuleController extends Controller
 
     public function create($courseId)
     {
-        if (!$course = $this->repositoryCourse->findById($courseId))
+        if (!$course = $this->serviceCourse->findById($courseId))
             return back();
 
         return view('admin.courses.modules.create', compact('course'));
@@ -45,10 +46,10 @@ class ModuleController extends Controller
 
     public function store(StoreUpdateModule $request, $courseId)
     {
-        if (!$this->repositoryCourse->findById($courseId))
+        if (!$this->serviceCourse->findById($courseId))
             return back();
 
-        $this->repository
+        $this->service
                 ->createByCourse($courseId, $request->only(['name']));
         
         return redirect()->route('modules.index', $courseId);
@@ -56,10 +57,10 @@ class ModuleController extends Controller
 
     public function edit($courseId, $id)
     {
-        if (!$course = $this->repositoryCourse->findById($courseId))
+        if (!$course = $this->serviceCourse->findById($courseId))
             return back();
         
-        if (!$module = $this->repository->findById($id))
+        if (!$module = $this->service->findById($id))
             return back();
 
         return view('admin.courses.modules.edit', compact('course', 'module'));
@@ -67,20 +68,20 @@ class ModuleController extends Controller
 
     public function update(StoreUpdateModule $request, $courseId, $id)
     {
-        if (!$this->repositoryCourse->findById($courseId))
+        if (!$this->serviceCourse->findById($courseId))
             return back();
         
-        $module = $this->repository->update($id, $request->only(['name']));
+        $module = $this->service->update($id, $request->only(['name']));
         
         return redirect()->route('modules.index', $courseId);
     }
 
     public function show($courseId, $id)
     {
-        if (!$course = $this->repositoryCourse->findById($courseId))
+        if (!$course = $this->serviceCourse->findById($courseId))
             return back();
         
-        if (!$module = $this->repository->findById($id))
+        if (!$module = $this->service->findById($id))
             return back();
 
         return view('admin.courses.modules.show', compact('course', 'module'));
@@ -88,7 +89,7 @@ class ModuleController extends Controller
 
     public function destroy($courseId, $id) {
         
-        if(!$this->repository->delete($id))
+        if(!$this->service->delete($id))
             return back();
         
             return redirect()->route('modules.index', $courseId);

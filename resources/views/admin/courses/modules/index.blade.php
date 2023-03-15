@@ -60,7 +60,7 @@
                                     <span class="relative">Editar</span>
                                 </span>
                             </a>
-                            <a href="{{ route('modules.index', $module->id) }}">
+                            <a href="{{ route('lessons.index', $module->id) }}">
                                 <span
                                     class="relative inline-block px-3 py-1 font-semibold text-purple-900 leading-tight">
                                     <span aria-hidden
