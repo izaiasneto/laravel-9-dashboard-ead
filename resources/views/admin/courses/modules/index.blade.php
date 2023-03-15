@@ -49,7 +49,7 @@
                                     <span class="relative">Detalhes</span>
                                 </span>
                             </a>  
-                            <a href="">
+                            <a href="{{ route('modules.edit', [$course->id, $module->id])}}">
                                 <span
                                     class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
                                     <span aria-hidden
