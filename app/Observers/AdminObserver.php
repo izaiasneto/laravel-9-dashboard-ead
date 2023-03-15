@@ -10,12 +10,12 @@ class AdminObserver
     /**
      * Handle the User "creating" event.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Admin  $admin
      * @return void
      */
-    public function creating(Admin $user)
+    public function creating(Admin $admin)
     {
-        $user->id = Str::uuid();
+        $admin->id = Str::uuid();
     }
 
 }

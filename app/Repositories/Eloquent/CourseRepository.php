@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Course as Model;
 use App\Repositories\CourseRepositoryInterface;
 
+
 class CourseRepository implements CourseRepositoryInterface
 {
     private $model;

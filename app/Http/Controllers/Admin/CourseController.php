@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\CourseService;
+use App\Services\{
+    CourseService,
+    UploadFile,
+};
+
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -22,5 +26,24 @@ class CourseController extends Controller
         );
 
         return view('admin.courses.index', compact('courses'));
+    }
+
+    public function create(Request $request)
+    {
+        return view('admin.courses.create');
+    }
+
+    public function store(Request $request, UploadFile $uploadFile)
+    {
+        $data = $request->only('name');
+        $data['available'] = isset($request->available);
+       
+        if ($request->image) {
+             $data['image'] = $uploadFile->store($request->image, 'courses');
+        }
+
+        $this->service->create($data);
+
+        return redirect()->route('courses.index');
     }
 }

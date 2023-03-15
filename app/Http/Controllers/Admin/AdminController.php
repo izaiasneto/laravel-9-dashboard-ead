@@ -90,7 +90,7 @@ class AdminController extends Controller
     public function uploadFile(StoreImage $request, UploadFile $uploadFile, $id)
     {
         $path = $uploadFile->store($request->image, 'admins');
-
+        
         if (!$this->service->update($id, ['image' => $path])) {
             return back();
         }
