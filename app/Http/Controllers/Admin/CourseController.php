@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\StoreCourse;
+use App\Http\Requests\StoreImage;
 use App\Services\{
     CourseService,
     UploadFile,
@@ -44,6 +45,37 @@ class CourseController extends Controller
         }
 
         $this->service->create($data);
+
+        return redirect()->route('courses.index');
+    }
+
+    public function edit($id)
+    {
+        if(!$course = $this->service->findById($id))
+            return back();
+
+        return view('admin.courses.edit', compact('course'));
+    }
+
+    public function update(StoreImage $request, UploadFile $uploadFile, $id)
+    {
+        $data = $request->only('name');
+        $data['available'] = isset($request->available);
+       
+        if ($request->image) {
+            // remove old image
+            $course = $this->service->findById($id);   
+            if($course && $course->image) {
+                $uploadFile->removeFile($course->image);
+            }
+
+            // upload new image
+            $data['image'] = $uploadFile->store($request->image, 'courses');
+            
+            
+        }
+
+        $this->service->update($id, $data);
 
         return redirect()->route('courses.index');
     }

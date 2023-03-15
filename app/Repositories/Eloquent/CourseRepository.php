@@ -17,7 +17,7 @@ class CourseRepository implements CourseRepositoryInterface
 
     public function getAll(string $filter = ''): array
     {
-        $admins = $this->model
+        $courses = $this->model
                         ->where(function ($query) use ($filter) {
                             if($filter) {
                                 $query->where('name', 'LIKE', "%{$filter}%");
@@ -25,7 +25,7 @@ class CourseRepository implements CourseRepositoryInterface
                         })
                         ->get();
 
-        return $admins->toArray();
+        return $courses->toArray();
     }
     
     public function findById(string $id): object|null
@@ -40,20 +40,20 @@ class CourseRepository implements CourseRepositoryInterface
 
     public function update(string $id,array $data): object|null
     {
-        if(!$admin = $this->findById($id)){
+        if(!$course = $this->findById($id)){
             return null;
         }
 
-        $admin->update($data);
+        $course->update($data);
 
-        return $admin;
+        return $course;
     }
 
     public function delete(string $id): bool
     {
-        if(!$admin = $this->findById($id))
+        if(!$course = $this->findById($id))
             return false;
 
-        return $admin->delete();  
+        return $course->delete();  
     }
 }
