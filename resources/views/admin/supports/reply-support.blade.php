@@ -3,19 +3,18 @@
 @section('title', 'Detalhes da Dúvida')
 
 @section('content')
-
 <div class="w-full">
-
+    
     <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
         <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
-        <div class="relative flex items-center space-x-4">
-            <div class="relative">          
-                <img src="{{ $support->user->image ? url("storage/{$support->user->image}") : url('/images/user.png')}}" alt="" class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
+            <div class="relative flex items-center space-x-4 pb-4 ">
+                <div class="relative">          
+                    <img src="{{ $support->user->image ? url("storage/{$support->user->image}") : url('/images/user.png')}}" alt="" class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
                 </div>
                 <div class="flex flex-col leading-tight">
                     <div class="text-2xl mt-1 flex items-center">
                         <span class="text-gray-700 mr-3">
-                            {{ $support->user->name }}
+                                {{ $support->user->name }}
                         </span>
                     </div>
                 </div>
@@ -41,11 +40,11 @@
                             <div class="flex flex-col space-y-2 max-w-xs mx-2 order-2">
                                 <div class="items-end justify-end">
                                     <span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-200 text-gray-600">
-                                    <p class="py-2 font-bold text-gray-450 ">{{ $user->name}}</p>
+                                    <p class="mb-5 py-2 font-bold text-gray-450 ">{{ $user->name}}</p>
 
                                     {{ $reply->description }}
 
-                                    <div class="flex items-start justify-start">
+                                    <div class="flex items-start justify-start mt-6 ">
                                         <p class="py-2 text-sm text-gray-400 ">{{ $reply->created_at}}</p>
                                     </div>
                                         
@@ -59,11 +58,11 @@
                                 <div>
                                     <span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">
 
-                                        <p class="py-2 font-bold text-blue-300 ">{{ $user->name}}</p>
+                                        <p class="mb-5 py-2 font-bold text-blue-300 ">{{ $user->name}}</p>
 
                                         {{ $reply->description }}
 
-                                        <div class="flex items-end justify-end">
+                                        <div class="flex items-end justify-end mt-6">
                                             <p class="py-2 text-sm text-blue-400 ">{{ $reply->created_at}}</p>
                                         </div>
                                         
