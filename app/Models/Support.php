@@ -32,7 +32,7 @@ class Support extends Model
 
     public function replies()
     {
-        return $this->hasMany(ReplySupport::class);
+        return $this->hasMany(ReplySupport::class)->orderBy('created_at');
     }
 }
    

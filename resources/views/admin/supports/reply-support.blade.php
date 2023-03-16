@@ -32,69 +32,70 @@
         <div id="messages" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
            
             @foreach ($support->replies as $reply)
-
-                @php
-                    $whenRepliesIsAuthor = $reply->user->id == $support->user->id;
-                    $classChatMessage = $whenRepliesIsAuthor ? '' : 'justify-end';
-                    $bgChat = $whenRepliesIsAuthor ? 'bg-gray-300 text-gray-600' : 'bg-blue-600 text-white';
-
-                    $orderImage = $whenRepliesIsAuthor ? 'order-1' : 'order-2';
-                    $orderText = $whenRepliesIsAuthor ? 'order-2' : 'order-1';
-                    $roundedBox =  $whenRepliesIsAuthor ? 'rounded-bl-none' : 'rounded-br-none';
-                    
-                    $image = $reply->user->image ? url("storage/{$reply->user->image}") : url('/images/user.png')
-                
-                @endphp
-
                 <div class="chat-message">
-                    <div class="flex items-end {{ $classChatMessage }}">
-                        <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 {{ $orderText }} items-start">
-                            <div><span class="px-4 py-2 rounded-lg inline-block {{ $roundedBox }} {{ $bgChat }} ">{{ $reply->description }}</span></div>
+                    @php
+                        $user = $reply->user ?? $reply->admin;
+                    @endphp
+                    @if ($user->id == $support->user->id)
+                        <div class="flex items-end ">
+                            <div class="flex flex-col space-y-2 max-w-xs mx-2 order-2">
+                                <div class="items-end justify-end">
+                                    <span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-200 text-gray-600">
+                                    <p class="py-2 font-bold text-gray-450 ">{{ $user->name}}</p>
+
+                                    {{ $reply->description }}
+
+                                    <div class="flex items-start justify-start">
+                                        <p class="py-2 text-sm text-gray-400 ">{{ $reply->created_at}}</p>
+                                    </div>
+                                        
+                                </span></div>
+                            </div>
+                            <img src="{{ $user->image ? url("storage/{$user->image}") : url('images/user.png') }}" class="w-6 h-6 rounded-full order-1">
                         </div>
-                        <img src="{{ $image }}" class="w-6 h-6 rounded-full {{ $orderImage }}">
-                    </div>
-                </div> 
-            @endforeach
+                    @else
+                        <div class="flex items-end justify-end">
+                            <div class="flex flex-col space-y-2 max-w-xs mx-2 order-1 items-end">
+                                <div>
+                                    <span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">
+
+                                        <p class="py-2 font-bold text-blue-300 ">{{ $user->name}}</p>
+
+                                        {{ $reply->description }}
+
+                                        <div class="flex items-end justify-end">
+                                            <p class="py-2 text-sm text-blue-400 ">{{ $reply->created_at}}</p>
+                                        </div>
+                                        
+                                     </span>
+                                </div>
+                            </div>
+                            
+                            <img src="{{ $user->image ? url("storage/{$user->image}") : url('images/user.png') }}" alt="My profile" class="w-6 h-6 rounded-full order-2">
+                        </div>
+                    @endif
+                </div>
+        @endforeach
             
         </div>
 
         <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
         <div class="relative flex">
-            <input type="text" placeholder="Write your message!" class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3">
-            <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">         
-                <button type="button" class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
-                    <span class="font-bold">Enviar</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 ml-2 transform rotate-90">
-                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
-                    </svg>
-                </button>
-            </div>
+            <form action="{{ route('replies.store', $support->id) }}" method="post" class="w-full">
+                @csrf
+                <input type="hidden" name="support_id" value="{{ $support->id }}">
+                <input type="text" name="description" placeholder="Escreva a sua resposta" class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3">
+                <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">         
+                    <button type="submit" class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
+                        <span class="font-bold">Enviar</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 ml-2 transform rotate-90">
+                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
         </div>
         </div>
     </div>
 </div>
- 
- <style>
- .scrollbar-w-2::-webkit-scrollbar {
-   width: 0.25rem;
-   height: 0.25rem;
- }
- 
- .scrollbar-track-blue-lighter::-webkit-scrollbar-track {
-   --bg-opacity: 1;
-   background-color: #f7fafc;
-   background-color: rgba(247, 250, 252, var(--bg-opacity));
- }
- 
- .scrollbar-thumb-blue::-webkit-scrollbar-thumb {
-   --bg-opacity: 1;
-   background-color: #edf2f7;
-   background-color: rgba(237, 242, 247, var(--bg-opacity));
- }
- 
- .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
-   border-radius: 0.25rem;
- }
- </style>
- 
 @endsection

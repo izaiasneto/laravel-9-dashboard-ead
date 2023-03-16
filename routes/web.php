@@ -8,10 +8,16 @@ use App\Http\Controllers\Admin\{
     DashboardController,
     SupportController,
     UserController,
+    ReplySupportController,
 };
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
+     /**
+     * Routes ReplySupports
+    */
+    Route::post('/supports/{id}/reply', [ReplySupportController::class, 'store'])->name('replies.store');
+
     /**
      * Routes Supports
     */

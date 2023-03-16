@@ -56,6 +56,7 @@ class User extends Authenticatable
         );
     }
 
+
     // public function getCreatedAtAttribute()
     // {
     //     return Carbon::make($this->attributes['created_at'])->format('d/m/Y');

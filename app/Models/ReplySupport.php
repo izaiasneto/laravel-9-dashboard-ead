@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +23,13 @@ class ReplySupport extends Model
     public $fillable = [
         'user_id', 'admin_id', 'support_id', 'description'
     ];
+
+    public function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::make($value)->format('d/m/Y - h:i'),
+        );
+    }
 
     public function admin()
     {
