@@ -39,33 +39,28 @@
                         <div class="flex items-end ">
                             <div class="flex flex-col space-y-2 max-w-xs mx-2 order-2">
                                 <div class="items-end justify-end">
+                                    <h1 class=" text-gray-600  ">
+                                        <strong>{{ $user->name}}</strong>
+                                        <span class=""> - {{ $reply->created_at}}</span>
+                                    </h1>
                                     <span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-200 text-gray-600">
-                                    <p class="mb-5 py-2 font-bold text-gray-450 ">{{ $user->name}}</p>
-
-                                    {{ $reply->description }}
-
-                                    <div class="flex items-start justify-start mt-6 ">
-                                        <p class="py-2 text-sm text-gray-400 ">{{ $reply->created_at}}</p>
-                                    </div>
-                                        
-                                </span></div>
+                                        {{ $reply->description }}
+                                    </span>
+                            </div>
                             </div>
                             <img src="{{ $user->image ? url("storage/{$user->image}") : url('images/user.png') }}" class="w-6 h-6 rounded-full order-1">
                         </div>
                     @else
-                        <div class="flex items-end justify-end">
+                    
+                        <div class="flex items-end justify-end">                           
                             <div class="flex flex-col space-y-2 max-w-xs mx-2 order-1 items-end">
+                                <h1 class=" -mb-2 text-gray-600  ">
+                                    <strong>{{ $user->name}}</strong>
+                                    <span class=""> - {{ $reply->created_at}}</span>
+                                </h1>
                                 <div>
                                     <span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">
-
-                                        <p class="mb-5 py-2 font-bold text-blue-300 ">{{ $user->name}}</p>
-
-                                        {{ $reply->description }}
-
-                                        <div class="flex items-end justify-end mt-6">
-                                            <p class="py-2 text-sm text-blue-400 ">{{ $reply->created_at}}</p>
-                                        </div>
-                                        
+                                        {{ $reply->description }}   
                                      </span>
                                 </div>
                             </div>
