@@ -9,7 +9,7 @@
         <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
             <div class="relative flex items-center space-x-4 pb-4 ">
                 <div class="relative">          
-                    <img src="{{ $support->user->image ? url("storage/{$support->user->image}") : url('/images/user.png')}}" alt="" class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
+                    <img src="{{ $support->user->image ?? url('/images/user.png')}}" alt="" class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
                 </div>
                 <div class="flex flex-col leading-tight">
                     <div class="text-2xl mt-1 flex items-center">
@@ -48,7 +48,8 @@
                                     </span>
                             </div>
                             </div>
-                            <img src="{{ $user->image ? url("storage/{$user->image}") : url('images/user.png') }}" class="w-6 h-6 rounded-full order-1">
+                            
+                            <img src="{{ $user->image ?? url('images/user.png') }}" class="w-6 h-6 rounded-full order-1">
                         </div>
                     @else
                     
@@ -65,7 +66,7 @@
                                 </div>
                             </div>
                             
-                            <img src="{{ $user->image ? url("storage/{$user->image}") : url('images/user.png') }}" alt="My profile" class="w-6 h-6 rounded-full order-2">
+                            <img src="{{ $user->image ?? url('images/user.png') }}" alt="My profile" class="w-6 h-6 rounded-full order-2">
                         </div>
                     @endif
                 </div>
